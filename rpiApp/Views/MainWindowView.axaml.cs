@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace rpiApp.Views;
 
-public partial class CameraInfoView : Window
+public partial class MainWindowView : Window
 {
-    public CameraInfoView()
+    public MainWindowView()
     {
         InitializeComponent();
     }

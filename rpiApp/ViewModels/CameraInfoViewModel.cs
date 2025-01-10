@@ -1,14 +1,16 @@
-﻿namespace rpiApp.ViewModels;
+﻿using HanumanInstitute.MvvmDialogs;
+using System;
 
-public partial class CameraInfoViewModel : ViewModelBase
+namespace rpiApp.ViewModels;
+
+public partial class CameraInfoViewModel() : ViewModelBase, IModalDialogViewModel, ICloseable
 {
-
-    public CameraInfoViewModel()
-    {
-    }
+    public bool? DialogResult { get; set; }
+    public event EventHandler? RequestClose;
 
     public void OnClose()
     {
-
+        DialogResult = true;
+        RequestClose?.Invoke(this, EventArgs.Empty);
     }
 }
