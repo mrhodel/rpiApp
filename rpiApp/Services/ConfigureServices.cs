@@ -4,26 +4,27 @@ using HanumanInstitute.MvvmDialogs.Avalonia;
 using HanumanInstitute.MvvmDialogs.Avalonia.MessageBox;
 using Microsoft.Extensions.DependencyInjection;
 using rpiApp.ViewModels;
+using System.Runtime.InteropServices;
 
-namespace rpiApp.Services
+namespace rpiApp.Services;
+internal static class ConfigureIocServices
 {
-    internal static class ConfigureIocServices
+    public static void ConfigureServices(this IServiceCollection services)  // Extension method
     {
-        internal static void ConfigureServices()
+        DialogManager dm = new(
+                viewLocator: new ViewLocator(),
+                dialogFactory: new DialogFactory().AddDialogHost().AddMessageBox(MessageBoxMode.Window))
         {
-            DialogManager dm = new(
-                    viewLocator: new ViewLocator(),
-                    dialogFactory: new DialogFactory().AddDialogHost().AddMessageBox(MessageBoxMode.Window))
-            {
-                AllowConcurrentDialogs = true
-            };
+            AllowConcurrentDialogs = true
+        };
 
-            Ioc.Default.ConfigureServices(
-            new ServiceCollection()
-                .AddSingleton<IDialogService>(new DialogService(dm, viewModelFactory: x => Ioc.Default.GetService(x)))
-                .AddTransient<MainWindowViewModel>()
+        services.AddTransient<MainWindowViewModel>()
                 .AddTransient<CameraInfoViewModel>()
-                .BuildServiceProvider());
-        }
+                .AddSingleton<IDialogService>(new DialogService(dm, viewModelFactory: x => Ioc.Default.GetService(x)));
+
+        _ = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? services.AddSingleton<ICameraService, CameraServiceLinux>()
+                                                              : services.AddSingleton<ICameraService, CameraServicePC>();
+
+        Ioc.Default.ConfigureServices(services.BuildServiceProvider());
     }
 }

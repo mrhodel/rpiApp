@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Data.Core.Plugins;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using HanumanInstitute.MvvmDialogs;
+using Microsoft.Extensions.DependencyInjection;
 using rpiApp.Services;
 using System.Linq;
 
@@ -12,7 +13,7 @@ namespace rpiApp
         public override void Initialize()
         {
             // Configure services.
-            ConfigureIocServices.ConfigureServices(); //
+            new ServiceCollection().ConfigureServices();
         }
 
         public override void OnFrameworkInitializationCompleted()

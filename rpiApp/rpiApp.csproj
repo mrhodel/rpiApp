@@ -5,11 +5,11 @@
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	<LangVersion>preview</LangVersion>
+	<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
@@ -25,11 +25,12 @@
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.4.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-    <PackageReference Include="HanumanInstitute.MvvmDialogs.Avalonia" Version="2.1.0" />
     <PackageReference Include="HanumanInstitute.MvvmDialogs.Avalonia.DialogHost" Version="2.1.0" />
     <PackageReference Include="HanumanInstitute.MvvmDialogs.Avalonia.MessageBox" Version="2.1.0" />
+    <PackageReference Include="Iot.Device.Bindings" Version="3.2.0" />
     <PackageReference Include="MessageBox.Avalonia.Markdown" Version="3.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="System.Text.Json" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

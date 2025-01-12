@@ -19,6 +19,6 @@
     </Design.DataContext>
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button Command="{Binding OnClose}" Content="Close" />
+        <Button Command="{Binding OnAccept}" Content="Accept" />
     </Grid>
 </UserControl>
