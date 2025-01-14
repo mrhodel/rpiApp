@@ -2,11 +2,13 @@
     x:Class="rpiApp.Views.CameraInfoView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Avalonia.PropertyGrid.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pgc="clr-namespace:rpiApp;assembly=rpiApp"
     xmlns:vm="using:rpiApp.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    Width="1500"
+    Height="650"
     x:DataType="vm:CameraInfoViewModel"
     mc:Ignorable="d">
 
@@ -18,7 +20,34 @@
         <vm:CameraInfoViewModel />
     </Design.DataContext>
 
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button Command="{Binding OnAccept}" Content="Accept" />
+    <Grid
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        RowDefinitions="*,*">
+        <Border
+            Padding="10"
+            BorderBrush="Green"
+            BorderThickness="2"
+            CornerRadius="10">
+            <ScrollViewer
+                Width="1000"
+                AllowAutoHide="False"
+                HorizontalScrollBarVisibility="Auto">
+                <controls:PropertyGrid
+                    x:Name="CameraGrid"
+                    Grid.Row="0"
+                    AllowFilter="True"
+                    AllowQuickFilter="False"
+                    DataContext="{Binding CameraParameters}"
+                    ShowStyle="Tiled"
+                    ShowTitle="True" />
+            </ScrollViewer>
+        </Border>
+        <Button
+            Grid.Row="1"
+            Margin="0,30"
+            HorizontalAlignment="Center"
+            Command="{Binding OnAccept}"
+            Content="Accept" />
     </Grid>
 </UserControl>

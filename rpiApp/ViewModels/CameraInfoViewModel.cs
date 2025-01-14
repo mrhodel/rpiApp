@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Diagnostics;
 using HanumanInstitute.MvvmDialogs;
 using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
+using rpiApp.Models;
 using rpiApp.Services;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace rpiApp.ViewModels;
@@ -11,6 +13,8 @@ namespace rpiApp.ViewModels;
 public partial class CameraInfoViewModel(IDialogService? dialogService, ICameraService? cameraService) : ViewModelBase, IModalDialogViewModel, ICloseable, IViewClosing
 {
     public CameraInfoViewModel() : this(null, null) { /* For XAML previewer */  }
+
+    public CameraParameters CameraParameters { get; set; } = new("Camera Parameters");
 
     public bool? DialogResult { get; set; } = false;
     public event EventHandler? RequestClose;
@@ -24,6 +28,9 @@ public partial class CameraInfoViewModel(IDialogService? dialogService, ICameraS
     public void OnClosing(CancelEventArgs e)
     {
         e.Cancel = true;
+
+        Debug.WriteLine(Convert.ToString((int)CameraParameters.Flags, 2));
+        Debug.WriteLine(Convert.ToString((int)CameraParameters.Flags, 16));
     }
 
     public async Task OnClosingAsync(CancelEventArgs e)
