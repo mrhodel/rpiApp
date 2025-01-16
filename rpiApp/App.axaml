@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
     xmlns:local="using:rpiApp"
-    RequestedThemeVariant="Default">
+    RequestedThemeVariant="Dark">
     <!--  "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options.  -->
 
     <Application.DataTemplates>
@@ -15,4 +15,22 @@
         <FluentTheme />
         <dialogHostAvalonia:DialogHostStyles />
     </Application.Styles>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <Color x:Key="ContentBorderBrush">Black</Color>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="ContentBorderBrush">White</Color>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+
+        <Thickness x:Key="ContentBorderThickness">2.0</Thickness>
+        <CornerRadius x:Key="ContentCornerRadius">10</CornerRadius>
+        <Thickness x:Key="ContentMargin">10, 10</Thickness>
+        <Thickness x:Key="ContentPadding">10</Thickness>
+    </Application.Resources>
 </Application>

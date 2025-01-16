@@ -6,30 +6,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace rpiApp.Models;
 
-public class CameraParameters : ReactiveObject
+public class CameraParameters(string description) : ReactiveObject
 {
-    public readonly string Description;
-
-    public CameraParameters(string description)
-    {
-        Description = description;
-    }
+    public readonly string Description = description;
 
     [Category("Frame")]
-    [DisplayName("Frame Rate")]
-    [Range(0.1f, 120.0f)]
+    [DisplayName("framerate")]
+    [Range(-1.0f, 120.0f)]
     [FloatPrecision(0)]
-    public double FrameRate { get; set; } = 60.0;
-
-    [Category("Frame")]
-    [Trackable(1, 120, Increment = 1, FormatString = "{0:0}")]
-    public int FrameRateInt { get; set; } = 10;
-
-    [Category("Frame")]
-    [DisplayName("Frame Size")]
-    [Range(0.1f, 120.0f)]
-    [FloatPrecision(3)]
-    public double FrameSize { get; set; } = 60.0;
+    public double FrameRate { get; set; } = -1;
 
     [Category("Focus")]
     [DisplayName("lens-position")]

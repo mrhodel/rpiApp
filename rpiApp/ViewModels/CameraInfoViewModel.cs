@@ -1,55 +1,32 @@
-﻿using CommunityToolkit.Diagnostics;
-using HanumanInstitute.MvvmDialogs;
-using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using rpiApp.Models;
 using rpiApp.Services;
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace rpiApp.ViewModels;
 
-public partial class CameraInfoViewModel(IDialogService? dialogService, ICameraService? cameraService) : ViewModelBase, IModalDialogViewModel, ICloseable, IViewClosing
+public partial class CameraInfoViewModel : ViewModelBase, IRecipient<CameraInfoMessage>
 {
-    public CameraInfoViewModel() : this(null, null) { /* For XAML previewer */  }
+    [ObservableProperty]
+    public partial string CameraInfoText { get; set; } = "Waiting for camera info...";
 
-    public CameraParameters CameraParameters { get; set; } = new("Camera Parameters");
+    readonly ICameraService? cameraService;
 
-    public bool? DialogResult { get; set; } = false;
-    public event EventHandler? RequestClose;
+    public CameraInfoViewModel() { }
 
-    public void OnAccept()
+    public CameraInfoViewModel(ICameraService cameraService)
     {
-        DialogResult = true;
-        RequestClose?.Invoke(this, EventArgs.Empty);
+        this.cameraService = cameraService;
+        WeakReferenceMessenger.Default.Register<CameraInfoMessage>(this);
     }
 
-    public void OnClosing(CancelEventArgs e)
+    public void OnGetCameraInfo()
     {
-        e.Cancel = true;
-
-        Debug.WriteLine(Convert.ToString((int)CameraParameters.Flags, 2));
-        Debug.WriteLine(Convert.ToString((int)CameraParameters.Flags, 16));
+        cameraService!.GetInfoAsync();
     }
 
-    public async Task OnClosingAsync(CancelEventArgs e)
+    public void Receive(CameraInfoMessage message)
     {
-        Guard.IsNotNull(dialogService);
-
-        var result = await dialogService.ShowMessageBoxAsync(null, "Are you sure you want to close?", "Close", MessageBoxButton.YesNoCancel);
-        if (result is not (null or false))
-        {
-            e.Cancel = false;
-        }
-
-        if (e.Cancel || DialogResult != true)
-        {
-            DialogResult = false;
-        }
-        else
-        {
-            cameraService?.GetInfoAsync();
-        }
+        CameraInfoText = message.Value;
     }
 }

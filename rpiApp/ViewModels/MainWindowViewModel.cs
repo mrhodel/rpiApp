@@ -1,35 +1,35 @@
-﻿using CommunityToolkit.Diagnostics;
+﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
-using HanumanInstitute.MvvmDialogs;
-using rpiApp.Models;
-using rpiApp.Services;
+using CommunityToolkit.Mvvm.DependencyInjection;
 using System.Diagnostics;
 
 namespace rpiApp.ViewModels;
 
-public partial class MainWindowViewModel(IDialogService? dialogService) : ViewModelBase, IViewLoaded, IRecipient<CameraInfoMessage>
+public partial class MainWindowViewModel(CameraSettingsViewModel? cameraSettingsViewModel,
+                                         CameraInfoViewModel? cameraInfoViewModel) : ViewModelBase
 {
-    public MainWindowViewModel() : this(null) { /* For XAML previewer */ }
-
-    public void OnLoaded()
-    {
-        WeakReferenceMessenger.Default.Register<CameraInfoMessage>(this);
+    public MainWindowViewModel() : this(null, null)
+    {   /* For XAML previewer */
+        this.CameraSettingsViewModel = Ioc.Default.GetRequiredService<CameraSettingsViewModel>();
+        this.CameraInfoViewModel = Ioc.Default.GetRequiredService<CameraInfoViewModel>();
     }
 
     [ObservableProperty]
-    public partial string Greeting { get; set; } = "Waiting for Camera Parameters...";
+    public partial string Greeting { get; set; } = "Waiting for Camera Info...";
+    public CameraSettingsViewModel? CameraSettingsViewModel { get; set; } = cameraSettingsViewModel;
+    public CameraInfoViewModel? CameraInfoViewModel { get; set; } = cameraInfoViewModel;
 
-    public async void CameraParametersSetCommandAsync()
+    private object? _selectedItem = null;
+    public object? SelectedItem
     {
-        Guard.IsNotNull(dialogService);
-        var result = await dialogService.ShowCameraInfoViewAsync(ownerViewModel: this);
-        Debug.WriteLine(result);
-    }
+        get { return _selectedItem; }
+        set
+        {
+            _selectedItem = value;
 
-    public void Receive(CameraInfoMessage message)
-    {
-        Greeting = message.Value;
+            // Some logic here
+            var item = value as TabItem;
+            Debug.WriteLine(item!.Name);
+        }
     }
-
 }

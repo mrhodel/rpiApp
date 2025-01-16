@@ -12,11 +12,14 @@ namespace rpiApp.Services;
 
 public interface ICameraService
 {
+    CameraParameters CameraParameters { get; set; }
     void GetInfoAsync();
 }
 
 public class CameraServiceLinux : ICameraService
 {
+    public CameraParameters CameraParameters { get; set; } = new("Camera Parameters");
+
     public async void GetInfoAsync()
     {
         ProcessSettings settings = new()
@@ -34,6 +37,8 @@ public class CameraServiceLinux : ICameraService
 
 public class CameraServicePC : ICameraService
 {
+    public CameraParameters CameraParameters { get; set; } = new("Camera Parameters");
+
     public async void GetInfoAsync()
     {
         var sb = new StringBuilder();

@@ -1,0 +1,40 @@
+<UserControl
+    x:Class="rpiApp.Views.CameraSettingsView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pgc="using:Avalonia.PropertyGrid.Controls"
+    xmlns:vm="using:rpiApp.ViewModels"
+    d:DesignHeight="300"
+    d:DesignWidth="500"
+    x:DataType="vm:CameraSettingsViewModel"
+    mc:Ignorable="d">
+
+    <Design.DataContext>
+        <!--
+            this only sets the datacontext for the previewer in an ide,
+            to set the actual datacontext for runtime, set the datacontext property in code (look at app.axaml.cs)
+        -->
+        <vm:CameraSettingsViewModel />
+    </Design.DataContext>
+
+    <Grid>
+        <Border
+            Margin="{StaticResource ContentMargin}"
+            Padding="{StaticResource ContentPadding}"
+            BorderBrush="{DynamicResource ContentBorderBrush}"
+            BorderThickness="{StaticResource ContentBorderThickness}"
+            CornerRadius="{StaticResource ContentCornerRadius}">
+            <ScrollViewer AllowAutoHide="False" HorizontalScrollBarVisibility="Auto">
+                <pgc:PropertyGrid
+                    x:Name="CameraGrid"
+                    AllowFilter="False"
+                    AllowQuickFilter="False"
+                    DataContext="{Binding CameraService.CameraParameters}"
+                    ShowStyle="Tiled"
+                    ShowTitle="True" />
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

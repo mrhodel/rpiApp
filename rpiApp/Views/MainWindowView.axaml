@@ -7,37 +7,31 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:rpiApp.ViewModels"
     Title="rpiApp"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    Width="1000"
+    Height="500"
     x:DataType="vm:MainWindowViewModel"
     Icon="/Assets/avalonia-logo.ico"
     mc:Ignorable="d">
 
-    <Design.DataContext>        
-            <!--This only sets the DataContext for the previewer in an IDE,
-            to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)-->       
+    <Design.DataContext>
+        <!--
+            This only sets the DataContext for the previewer in an IDE,
+            to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
+        -->
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <StackPanel VerticalAlignment="Center">
-		<TextBox
-            Width="700"
-            Height="200"
-            Margin="10"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            AcceptsReturn="True"
-            IsEnabled="True"
-            IsReadOnly="False"
-            ScrollViewer.AllowAutoHide="False"
-            ScrollViewer.HorizontalScrollBarVisibility="Auto"
-            ScrollViewer.VerticalScrollBarVisibility="Visible"
-            Text="{Binding Greeting, Mode=TwoWay}"
-            TextWrapping="Wrap" />
-		<Button
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Command="{Binding CameraParametersSetCommandAsync}"
-            Content="Camera Parameters" />
-    </StackPanel>
+    <Grid RowDefinitions="*">
+        <TabControl
+            x:Name="MyTabControl"
+            SelectedItem="{Binding SelectedItem}"
+            TabStripPlacement="Left">
+            <TabItem x:Name="CameraInfo" Header="Camera Info">
+                <ContentControl Content="{Binding CameraInfoViewModel}" />
+            </TabItem>
+            <TabItem x:Name="CameraSettings" Header="Camera Settings">
+                <ContentControl Content="{Binding CameraSettingsViewModel}" />
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>
