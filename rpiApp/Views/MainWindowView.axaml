@@ -32,6 +32,9 @@
             <TabItem x:Name="CameraSettings" Header="Camera Settings">
                 <ContentControl Content="{Binding CameraSettingsViewModel}" />
             </TabItem>
-        </TabControl>
+			<TabItem x:Name="CameraView" Header="Camera View">
+				<ContentControl Content="{Binding CameraViewModel}" />
+			</TabItem>
+		</TabControl>
     </Grid>
 </Window>

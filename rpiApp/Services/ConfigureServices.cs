@@ -21,6 +21,7 @@ internal static class ConfigureIocServices
         services.AddTransient<MainWindowViewModel>()
                 .AddTransient<CameraSettingsViewModel>()
                 .AddTransient<CameraInfoViewModel>()
+                .AddTransient<CameraViewModel>()
                 .AddSingleton<IDialogService>(new DialogService(dm, viewModelFactory: x => Ioc.Default.GetService(x)));
 
         _ = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? services.AddSingleton<ICameraService, CameraServiceLinux>()

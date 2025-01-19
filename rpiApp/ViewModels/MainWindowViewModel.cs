@@ -6,18 +6,21 @@ using System.Diagnostics;
 namespace rpiApp.ViewModels;
 
 public partial class MainWindowViewModel(CameraSettingsViewModel? cameraSettingsViewModel,
-                                         CameraInfoViewModel? cameraInfoViewModel) : ViewModelBase
+                                         CameraInfoViewModel? cameraInfoViewModel,
+                                         CameraViewModel? cameraViewModel) : ViewModelBase
 {
-    public MainWindowViewModel() : this(null, null)
+    public MainWindowViewModel() : this(null, null, null)
     {   /* For XAML previewer */
         this.CameraSettingsViewModel = Ioc.Default.GetRequiredService<CameraSettingsViewModel>();
         this.CameraInfoViewModel = Ioc.Default.GetRequiredService<CameraInfoViewModel>();
+        this.CameraViewModel = Ioc.Default.GetRequiredService<CameraViewModel>();
     }
 
     [ObservableProperty]
     public partial string Greeting { get; set; } = "Waiting for Camera Info...";
     public CameraSettingsViewModel? CameraSettingsViewModel { get; set; } = cameraSettingsViewModel;
     public CameraInfoViewModel? CameraInfoViewModel { get; set; } = cameraInfoViewModel;
+    public CameraViewModel? CameraViewModel { get; set; } = cameraViewModel;
 
     private object? _selectedItem = null;
     public object? SelectedItem
