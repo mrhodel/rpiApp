@@ -17,7 +17,12 @@ public partial class CameraSettingsViewModel(ICameraService? cameraService) : Vi
     public void OnLoaded()
     {
         CameraService!.GetInfoAsync();
-        Debug.WriteLine("0x" + Convert.ToString((int)CameraService!.CameraParameters.Flags, 16));
-        Debug.WriteLine("0b" + Convert.ToString((int)CameraService!.CameraParameters.Flags, 2));
+        Debug.WriteLine("0x" + Convert.ToString((int)CameraService!.CameraParameters.LedIndicators, 16));
+        Debug.WriteLine("0b" + Convert.ToString((int)CameraService!.CameraParameters.LedIndicators, 2));
+    }
+
+    public void OnButton()
+    {
+        Debug.WriteLine($"{CameraService!.CameraParameters.LedIndicators}");
     }
 }

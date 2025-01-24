@@ -19,7 +19,7 @@
         <vm:CameraSettingsViewModel />
     </Design.DataContext>
 
-    <Grid>
+    <Grid RowDefinitions="*,50">
         <Border
             Margin="{StaticResource ContentMargin}"
             Padding="{StaticResource ContentPadding}"
@@ -36,5 +36,6 @@
                     ShowTitle="True" />
             </ScrollViewer>
         </Border>
+		<Button Grid.Row="1" Content="Update Leds" HorizontalAlignment="Center" Command ="{Binding OnButton}"></Button>
     </Grid>
 </UserControl>

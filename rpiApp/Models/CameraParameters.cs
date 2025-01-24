@@ -18,6 +18,8 @@ public class CameraParameters(string description) : ReactiveObject
 
     [Category("Focus")]
     [DisplayName("lens-position")]
+    [Description("The position of the lens")]
+    [Trackable]
     [Range(0, 100)]
     public int LensPosition { get; set; } = 50;
 
@@ -26,23 +28,25 @@ public class CameraParameters(string description) : ReactiveObject
     public SelectableList<string> AutoFocusMode { get; set; } = new SelectableList<string>(["manual", "auto", "continuous"], "auto");
 
     [Flags]
-    public enum PhoneService
+    public enum Led
     {
-        [EnumDisplayName("Land Line (1)")]
-        LandLine = 1,
-        [EnumDisplayName("Cell (2)")]
-        Cell = 2,
-        [EnumDisplayName("Fax (4)")]
-        Fax = 4,
-        [EnumDisplayName("Cell (Internet (8)")]
-        Internet = 8,
-        [EnumDisplayName("Other (16)")]
-        Other = 16,
+        [EnumDisplayName("Red (1)")]
+        Red = 1,
+        [EnumDisplayName("Green (2)")]
+        Green = 2,
+        [EnumDisplayName("Blue (4)")]
+        Blue = 4,
+        [EnumDisplayName("Yellow (8)")]
+        Yellow = 8,
+        [EnumDisplayName("White (16)")]
+        White = 16,
+
 
         [EnumExclude]
         CanNotSeeThis = 64,
     }
 
-    public PhoneService Flags { get; set; } = PhoneService.Other;
+    [DisplayName("led Indicators")]
+    public Led LedIndicators { get; set; }
 
 }
