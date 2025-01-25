@@ -15,7 +15,7 @@
             this only sets the datacontext for the previewer in an ide,
             to set the actual datacontext for runtime, set the datacontext property in code (look at app.axaml.cs)
         -->
-        <vm:CameraSettingsViewModel />
+        <vm:PropertiesViewModel />
     </Design.DataContext>
 
     <Grid RowDefinitions="*,50">

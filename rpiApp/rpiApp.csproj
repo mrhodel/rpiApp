@@ -41,8 +41,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\CameraSettingsView.axaml.cs">
-      <DependentUpon>CameraSettingsView.axaml</DependentUpon>
+    <Compile Update="Views\PropertiesView.axaml.cs">
+      <DependentUpon>PropertiesView.axaml</DependentUpon>
     </Compile>
     <Compile Update="Views\MainWindowView.axaml.cs">
       <DependentUpon>MainWindowView.axaml</DependentUpon>

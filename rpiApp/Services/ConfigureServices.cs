@@ -19,13 +19,22 @@ internal static class ConfigureIocServices
         };
 
         services.AddTransient<MainWindowViewModel>()
-                .AddTransient<CameraSettingsViewModel>()
+                .AddTransient<PropertiesViewModel>()
                 .AddTransient<CameraInfoViewModel>()
                 .AddTransient<CameraViewModel>()
+                .AddSingleton<IPropertiesService, PropertiesService>()
                 .AddSingleton<IDialogService>(new DialogService(dm, viewModelFactory: x => Ioc.Default.GetService(x)));
 
-        _ = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? services.AddSingleton<ICameraService, CameraServiceLinux>()
-                                                              : services.AddSingleton<ICameraService, CameraServicePC>();
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            services.AddSingleton<ILedService, LedServiceLinux>();
+            services.AddSingleton<ICameraService, CameraServiceLinux>();
+        }
+        else
+        {
+            services.AddSingleton<ILedService, LedServicePC>();
+            services.AddSingleton<ICameraService, CameraServicePC>();
+        }
 
         Ioc.Default.ConfigureServices(services.BuildServiceProvider());
     }

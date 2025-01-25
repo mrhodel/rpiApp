@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace rpiApp.Views;
 
-public partial class CameraSettingsView : UserControl
+public partial class PropertiesView : UserControl
 {
-    public CameraSettingsView()
+    public PropertiesView()
     {
         InitializeComponent();
     }

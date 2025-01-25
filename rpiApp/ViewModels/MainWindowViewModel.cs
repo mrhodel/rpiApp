@@ -1,30 +1,29 @@
-﻿using Avalonia.Controls;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.Mvvm.Messaging;
-using rpiApp.Models;
-using System;
+using rpiApp.Services;
 using System.Diagnostics;
-using System.Threading;
 
 namespace rpiApp.ViewModels;
 
-public partial class MainWindowViewModel(CameraSettingsViewModel? cameraSettingsViewModel,
+public partial class MainWindowViewModel(PropertiesViewModel? propertiesViewModel,
                                          CameraInfoViewModel? cameraInfoViewModel,
-                                         CameraViewModel? cameraViewModel) : ViewModelBase
+                                         CameraViewModel? cameraViewModel,
+                                         ILedService? ledService) : ViewModelBase
 {
-    public MainWindowViewModel() : this(null, null, null)
+    public MainWindowViewModel() : this(null, null, null, null)
     {   /* For XAML previewer */
-        this.CameraSettingsViewModel = Ioc.Default.GetRequiredService<CameraSettingsViewModel>();
+        this.PropertiesViewModel = Ioc.Default.GetRequiredService<PropertiesViewModel>();
         this.CameraInfoViewModel = Ioc.Default.GetRequiredService<CameraInfoViewModel>();
         this.CameraViewModel = Ioc.Default.GetRequiredService<CameraViewModel>();
+        this.LedService = Ioc.Default.GetRequiredService<ILedService>();
     }
 
-    [ObservableProperty]
-    public partial string Greeting { get; set; } = "Waiting for Camera Info...";
-    public CameraSettingsViewModel? CameraSettingsViewModel { get; set; } = cameraSettingsViewModel;
+    public PropertiesViewModel? PropertiesViewModel { get; set; } = propertiesViewModel;
     public CameraInfoViewModel? CameraInfoViewModel { get; set; } = cameraInfoViewModel;
     public CameraViewModel? CameraViewModel { get; set; } = cameraViewModel;
+    public ILedService? LedService { get; set; } = ledService;
 
     private object? _selectedItem = null;
     public object? SelectedItem
@@ -36,15 +35,15 @@ public partial class MainWindowViewModel(CameraSettingsViewModel? cameraSettings
 
             // Some logic here
             var item = value as TabItem;
+            Debug.WriteLine(item!.Name);
 
             if (item!.Name == "ExitApp")
             {
-                WeakReferenceMessenger.Default.Send(new AppClosingMessage("App Closing"));
-                Thread.Sleep(1000);
-                Environment.Exit(0);
+                if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime)
+                {
+                    lifetime.Shutdown();
+                }
             }
-
-            Debug.WriteLine(item!.Name);
         }
     }
 }

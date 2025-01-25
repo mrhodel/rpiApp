@@ -1,5 +1,5 @@
 <UserControl
-    x:Class="rpiApp.Views.CameraSettingsView"
+    x:Class="rpiApp.Views.PropertiesView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
     xmlns:vm="using:rpiApp.ViewModels"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    x:DataType="vm:CameraSettingsViewModel"
+    x:DataType="vm:PropertiesViewModel"
     mc:Ignorable="d">
 
     <Design.DataContext>
@@ -16,7 +16,7 @@
             this only sets the datacontext for the previewer in an ide,
             to set the actual datacontext for runtime, set the datacontext property in code (look at app.axaml.cs)
         -->
-        <vm:CameraSettingsViewModel />
+        <vm:PropertiesViewModel />
     </Design.DataContext>
 
     <Grid RowDefinitions="*,50">
@@ -31,11 +31,10 @@
                     x:Name="Properties"
                     AllowFilter="False"
                     AllowQuickFilter="False"
-                    DataContext="{Binding CameraService.CameraParameters}"
+                    DataContext="{Binding Properties}"
                     ShowStyle="Tiled"
                     ShowTitle="True" />
             </ScrollViewer>
         </Border>
-		<!--<Button Grid.Row="1" Content="Update Leds" HorizontalAlignment="Center" Command ="{Binding OnButton}"></Button>-->
     </Grid>
 </UserControl>

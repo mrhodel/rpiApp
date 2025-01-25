@@ -34,7 +34,6 @@ public class Properties(string description) : ReactiveObject
     public const int YellowLedPin = 20;
     public const int WhiteLedPin = 21;
 
-
     [Flags]
     public enum Led
     {
