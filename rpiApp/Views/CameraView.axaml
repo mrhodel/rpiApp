@@ -29,7 +29,7 @@
             <Grid RowDefinitions="Auto, *, Auto">
                 <Label Grid.Row="0" HorizontalAlignment="Center">Video Player</Label>
 
-                <vlc:VideoView
+                <!--<vlc:VideoView
                     Grid.Row="1"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
@@ -44,7 +44,7 @@
                             <Button Margin="20" Command="{Binding Stop}">Stop</Button>
                         </StackPanel>
                     </Panel>
-                </vlc:VideoView>
+                </vlc:VideoView>-->
             </Grid>
 
         </Border>

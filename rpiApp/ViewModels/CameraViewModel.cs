@@ -1,17 +1,16 @@
 ﻿using Avalonia.Controls;
-using LibVLCSharp.Shared;
-using System;
+//using LibVLCSharp.Shared;
 
 namespace rpiApp.ViewModels;
 
 public partial class CameraViewModel : ViewModelBase
 {
-    private readonly LibVLC libVlc = new(enableDebugLogs: false);
-    public MediaPlayer MediaPlayer { get; }
+    //private readonly LibVLC libVlc = new(enableDebugLogs: false);
+    //public MediaPlayer MediaPlayer { get; }
 
     public CameraViewModel()
     {
-        MediaPlayer = new MediaPlayer(libVlc);
+        //MediaPlayer = new MediaPlayer(libVlc);
     }
 
     public void Play()
@@ -21,18 +20,18 @@ public partial class CameraViewModel : ViewModelBase
             return;
         }
 
-        using var media = new Media(libVlc, new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
-        MediaPlayer.Play(media);
+        //using var media = new Media(libVlc, new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
+        //MediaPlayer.Play(media);
     }
 
-    public void Stop()
-    {
-        MediaPlayer.Stop();
-    }
+    //public void Stop()
+    //{
+    //    MediaPlayer.Stop();
+    //}
 
-    public void Dispose()
-    {
-        MediaPlayer?.Dispose();
-        libVlc?.Dispose();
-    }
+    //public void Dispose()
+    //{
+    //    MediaPlayer?.Dispose();
+    //    libVlc?.Dispose();
+    //}
 }
