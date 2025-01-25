@@ -30,7 +30,10 @@
             <TabItem x:Name="Properties" Header="Properties">
                 <ContentControl Content="{Binding PropertiesViewModel}" />
             </TabItem>
-            <TabItem x:Name="CameraInfo" Header="Camera Info">
+			<TabItem x:Name="Charting" Header="Charting">
+				<ContentControl Content="{Binding ChartingViewModel}" />
+			</TabItem>
+			<TabItem x:Name="CameraInfo" Header="Camera Info">
                 <ContentControl Content="{Binding CameraInfoViewModel}" />
             </TabItem>
             <TabItem x:Name="CameraView" Header="Camera View">
