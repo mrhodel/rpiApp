@@ -20,9 +20,4 @@ public partial class CameraSettingsViewModel(ICameraService? cameraService) : Vi
         Debug.WriteLine("0x" + Convert.ToString((int)CameraService!.CameraParameters.LedIndicators, 16));
         Debug.WriteLine("0b" + Convert.ToString((int)CameraService!.CameraParameters.LedIndicators, 2));
     }
-
-    public void OnButton()
-    {
-        Debug.WriteLine($"{CameraService!.CameraParameters.LedIndicators}");
-    }
 }

@@ -9,6 +9,7 @@
     Title="rpiApp"
     Width="1000"
     Height="500"
+	WindowState="FullScreen"
     x:DataType="vm:MainWindowViewModel"
     Icon="/Assets/avalonia-logo.ico"
     mc:Ignorable="d">
@@ -26,14 +27,16 @@
             x:Name="MyTabControl"
             SelectedItem="{Binding SelectedItem}"
             TabStripPlacement="Left">
+            <TabItem x:Name="CameraSettings" Header="Properties">
+                <ContentControl Content="{Binding CameraSettingsViewModel}" />
+            </TabItem>
             <TabItem x:Name="CameraInfo" Header="Camera Info">
                 <ContentControl Content="{Binding CameraInfoViewModel}" />
             </TabItem>
-            <TabItem x:Name="CameraSettings" Header="Camera Settings">
-                <ContentControl Content="{Binding CameraSettingsViewModel}" />
-            </TabItem>
 			<TabItem x:Name="CameraView" Header="Camera View">
 				<ContentControl Content="{Binding CameraViewModel}" />
+			</TabItem>
+			<TabItem x:Name="ExitApp" Header="Exit">
 			</TabItem>
 		</TabControl>
     </Grid>

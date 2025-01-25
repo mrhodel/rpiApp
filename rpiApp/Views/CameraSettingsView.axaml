@@ -6,8 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pgc="using:Avalonia.PropertyGrid.Controls"
     xmlns:vm="using:rpiApp.ViewModels"
-    d:DesignHeight="300"
-    d:DesignWidth="500"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
     x:DataType="vm:CameraSettingsViewModel"
     mc:Ignorable="d">
 
@@ -28,7 +28,7 @@
             CornerRadius="{StaticResource ContentCornerRadius}">
             <ScrollViewer AllowAutoHide="False" HorizontalScrollBarVisibility="Auto">
                 <pgc:PropertyGrid
-                    x:Name="CameraGrid"
+                    x:Name="Properties"
                     AllowFilter="False"
                     AllowQuickFilter="False"
                     DataContext="{Binding CameraService.CameraParameters}"
@@ -36,6 +36,6 @@
                     ShowTitle="True" />
             </ScrollViewer>
         </Border>
-		<Button Grid.Row="1" Content="Update Leds" HorizontalAlignment="Center" Command ="{Binding OnButton}"></Button>
+		<!--<Button Grid.Row="1" Content="Update Leds" HorizontalAlignment="Center" Command ="{Binding OnButton}"></Button>-->
     </Grid>
 </UserControl>

@@ -1,7 +1,11 @@
 ﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Messaging;
+using rpiApp.Models;
+using System;
 using System.Diagnostics;
+using System.Threading;
 
 namespace rpiApp.ViewModels;
 
@@ -32,6 +36,14 @@ public partial class MainWindowViewModel(CameraSettingsViewModel? cameraSettings
 
             // Some logic here
             var item = value as TabItem;
+
+            if (item!.Name == "ExitApp")
+            {
+                WeakReferenceMessenger.Default.Send(new AppClosingMessage("App Closing"));
+                Thread.Sleep(1000);
+                Environment.Exit(0);
+            }
+
             Debug.WriteLine(item!.Name);
         }
     }

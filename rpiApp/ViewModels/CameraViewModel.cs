@@ -1,28 +1,17 @@
 ﻿using Avalonia.Controls;
 using LibVLCSharp.Shared;
-using rpiApp.Services;
 using System;
 
 namespace rpiApp.ViewModels;
 
 public partial class CameraViewModel : ViewModelBase
 {
-    private readonly LibVLC libVlc = new(enableDebugLogs: true);
-    readonly ICameraService CameraService;
-
-
+    private readonly LibVLC libVlc = new(enableDebugLogs: false);
     public MediaPlayer MediaPlayer { get; }
 
-    public CameraViewModel(ICameraService cameraService)
+    public CameraViewModel()
     {
         MediaPlayer = new MediaPlayer(libVlc);
-        CameraService = cameraService;
-
-        libVlc.Log += (sender, e) =>
-        {
-            // Output the log message to the Visual Studio Output window
-            System.Diagnostics.Debug.WriteLine($"[{e.Level}] {e.Module}: {e.Message}");
-        };
     }
 
     public void Play()
@@ -33,11 +22,6 @@ public partial class CameraViewModel : ViewModelBase
         }
 
         using var media = new Media(libVlc, new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
-        //using var media = new Media(libVlc, new Uri("dshow://"));
-        //media.AddOption(" :dshow-vdev=Integrated Webcam :dshow-adev=  :live-caching=300)");
-        //media.AddOption(":dshow-vdev=Integrated Webcam");
-        //media.AddOption(":dshow-adev=none");
-        //media.AddOption(":live-caching=300");
         MediaPlayer.Play(media);
     }
 
@@ -51,5 +35,4 @@ public partial class CameraViewModel : ViewModelBase
         MediaPlayer?.Dispose();
         libVlc?.Dispose();
     }
-
 }
