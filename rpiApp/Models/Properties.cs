@@ -54,7 +54,7 @@ public class Properties(string description) : ReactiveObject
 
     [DisplayName("led Indicators")]
     [ValidateLeds]
-    public Led LedIndicators { get; set; } = Led.White;
+    public Led LedIndicators { get; set; } = Led.Green;
 
 
     public class ValidateLedsAttribute : ValidationAttribute

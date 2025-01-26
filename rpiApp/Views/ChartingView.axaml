@@ -21,14 +21,21 @@
 
     <Grid RowDefinitions="*,50">
         <lvc:CartesianChart
+            Margin="{StaticResource ContentMargin}"
+            Padding="{StaticResource ContentPadding}"
+            BorderBrush="{DynamicResource ContentBorderBrush}"
+            BorderThickness="{StaticResource ContentBorderThickness}"
+            CornerRadius="{StaticResource ContentCornerRadius}"
             Series="{Binding Series}"
             SyncContext="{Binding Sync}"
             XAxes="{Binding XAxes}" />
-        <Button
+        <StackPanel
             Grid.Row="1"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Command="{Binding OnClearData}"
-            Content="Clear Data" />
+            Orientation="Horizontal"
+            Spacing="20">
+            <Button Command="{Binding OnPause}" Content="{Binding PauseText}" />
+            <Button Command="{Binding OnClearData}" Content="Clear Data" />
+        </StackPanel>
     </Grid>
 </UserControl>

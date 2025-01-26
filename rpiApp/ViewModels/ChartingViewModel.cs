@@ -12,52 +12,83 @@ namespace rpiApp.ViewModels;
 
 public partial class ChartingViewModel : ViewModelBase
 {
-    private readonly List<DateTimePoint> values = [];
+    private readonly List<DateTimePoint> valuesA = [];
+    private readonly List<DateTimePoint> valuesB = [];
     private readonly DateTimeAxis customAxis;
+    private readonly bool isReading = true;
+    private readonly Random random = new();
+    private bool isPaused = false;
+
     public ObservableCollection<ISeries> Series { get; set; }
     public Axis[] XAxes { get; set; }
-    public object Sync { get; } = new object();
-    public bool IsReading { get; set; } = true;
+    public object Sync { get; set; } = new object();
+    public string PauseText { get; set; } = "Pause";
 
     public ChartingViewModel()
     {
-        Series = [new LineSeries<DateTimePoint>
-        {
-            Values = values,
-            Fill = null,
-            Stroke = new SolidColorPaint(SKColors.LightGreen, strokeWidth: 1.0f),
-            LineSmoothness = 0.5f,
-            GeometryFill = null,
-            GeometryStroke = null,
-        }];
+        Series = [
+            new LineSeries<DateTimePoint>
+            {
+                Values = valuesB,
+                Fill = null,
+                Stroke = new SolidColorPaint(SKColors.LightGreen, strokeWidth: 1.0f),
+                LineSmoothness = 0.2f,
+                GeometryFill = null,
+                GeometryStroke = null,
+            },
+            new LineSeries<DateTimePoint>
+            {
+                Values = valuesA,
+                Fill = null,
+                Stroke = new SolidColorPaint(SKColors.LightBlue, strokeWidth: 1.0f),
+                LineSmoothness = 0.2f,
+                GeometryFill = null,
+                GeometryStroke = null,
+            }
+        ];
 
         customAxis = new DateTimeAxis(TimeSpan.FromSeconds(1), Formatter)
         {
             CustomSeparators = GetSeparators(),
             AnimationsSpeed = TimeSpan.FromMilliseconds(0),
-            SeparatorsPaint = new SolidColorPaint(SKColors.Black.WithAlpha(100))
+            SeparatorsPaint = new SolidColorPaint(SKColors.Gray.WithAlpha(100))
         };
 
         XAxes = [customAxis];
         _ = ReadDataAsync();
     }
+
     private async Task ReadDataAsync()
     {
-        Random random = new();
-        while (IsReading)
+        while (isReading)
         {
             await Task.Delay(100);
-            // Because we are updating the chart from a different thread 
-            // we need to use a lock to access the chart data. 
-            // this is not necessary if your changes are made on the UI thread. 
-            lock (Sync)
-            {
-                values.Add(new DateTimePoint(DateTime.Now, random.Next(0, 10)));
-                if (values.Count > 250) values.RemoveAt(0);
+            if (isPaused) continue;
+            ReadData();
+        }
+    }
 
-                // we need to update the separators every time we add a new point 
-                customAxis.CustomSeparators = GetSeparators();
+    private void ReadData()
+    {
+        // Because we are updating the chart from a different thread 
+        // we need to use a lock to access the chart data. 
+        // this is not necessary if your changes are made on the UI thread. 
+        lock (Sync)
+        {
+            valuesA.Add(new DateTimePoint(DateTime.Now, random.Next(0, 10)));
+            if (valuesA.Count > 250)
+            {
+                valuesA.RemoveAt(0);
             }
+
+            valuesB.Add(new DateTimePoint(DateTime.Now, random.Next(10, 20)));
+            if (valuesB.Count > 250)
+            {
+                valuesB.RemoveAt(0);
+            }
+
+            // we need to update the separators every time we add a new point 
+            customAxis.CustomSeparators = GetSeparators();
         }
     }
 
@@ -75,6 +106,7 @@ public partial class ChartingViewModel : ViewModelBase
             now.Ticks
         ];
     }
+
     private static string Formatter(DateTime date)
     {
         var secsAgo = (DateTime.Now - date).TotalSeconds;
@@ -82,11 +114,19 @@ public partial class ChartingViewModel : ViewModelBase
         return secsAgo < 1 ? "now" : $"{secsAgo:N0}s ago";
     }
 
+    public void OnPause()
+    {
+        isPaused = !isPaused;
+        PauseText = isPaused ? "Resume" : "Pause";
+    }
+
     public void OnClearData()
     {
         lock (Sync)
         {
-            values.Clear();
+            valuesA.Clear();
+            valuesB.Clear();
+            customAxis.CustomSeparators = GetSeparators();
         }
     }
 }
