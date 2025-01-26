@@ -1,4 +1,8 @@
-﻿using Avalonia;
+﻿/*
+ * MainWindowViewModel.cs
+ * 1/26/2025 Mike Hodel
+*/
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.DependencyInjection;

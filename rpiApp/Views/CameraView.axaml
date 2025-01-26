@@ -1,3 +1,8 @@
+<!--
+* CameraView.axaml
+* 1/26/2025 Mike Hodel
+*
+-->
 <UserControl
     x:Class="rpiApp.Views.CameraView"
     xmlns="https://github.com/avaloniaui"

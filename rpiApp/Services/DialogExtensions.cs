@@ -1,4 +1,9 @@
-﻿using HanumanInstitute.MvvmDialogs;
+﻿/*
+ * DialogExtensions.cs
+ * 1/26/2025 Mike Hodel
+*/
+
+using HanumanInstitute.MvvmDialogs;
 using rpiApp.ViewModels;
 
 namespace rpiApp.Services;

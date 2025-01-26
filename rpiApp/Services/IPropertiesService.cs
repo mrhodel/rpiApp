@@ -1,4 +1,8 @@
-﻿using rpiApp.Models;
+﻿/*
+ * IPorpertiesService.cs
+ * 1/26/2025 Mike Hodel
+*/
+using rpiApp.Models;
 
 namespace rpiApp.Services
 {

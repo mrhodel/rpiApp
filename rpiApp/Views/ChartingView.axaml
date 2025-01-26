@@ -1,3 +1,8 @@
+<!--
+* ChartingView.axaml
+* 1/26/2025 Mike Hodel
+*
+-->
 <UserControl
     x:Class="rpiApp.Views.ChartingView"
     xmlns="https://github.com/avaloniaui"

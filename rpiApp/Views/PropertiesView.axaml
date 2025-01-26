@@ -1,3 +1,8 @@
+<!--
+* PropertiesView.axaml
+* 1/26/2025 Mike Hodel
+*
+-->
 <UserControl
     x:Class="rpiApp.Views.PropertiesView"
     xmlns="https://github.com/avaloniaui"

@@ -1,4 +1,10 @@
-﻿//using LibVLCSharp.Shared;
+﻿/*
+ * CameraViewModel.cs
+ * 1/26/2025 Mike Hodel
+*/
+
+
+//using LibVLCSharp.Shared;
 
 namespace rpiApp.ViewModels;
 

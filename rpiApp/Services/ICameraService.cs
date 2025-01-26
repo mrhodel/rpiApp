@@ -1,5 +1,9 @@
-﻿// https://github.com/dotnet/iot/tree/main/src/devices/Camera
-
+﻿/*
+ * ICameraService.cs
+ * 1/26/2025 Mike Hodel
+ * 
+ * Ref: https://github.com/dotnet/iot/tree/main/src/devices/Camera
+*/
 using CommunityToolkit.Mvvm.Messaging;
 using Iot.Device.Camera.Settings;
 using Iot.Device.Common;

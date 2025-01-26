@@ -1,4 +1,8 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection;
+﻿/*
+ * PropertiesViewModel.cs
+ * 1/26/2025 Mike Hodel
+*/
+using CommunityToolkit.Mvvm.DependencyInjection;
 using rpiApp.Models;
 using rpiApp.Services;
 

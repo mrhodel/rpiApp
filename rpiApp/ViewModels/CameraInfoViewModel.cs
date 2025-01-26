@@ -1,4 +1,8 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿/*
+ * CameraInfoViewModel.cs
+ * 1/26/2025 Mike Hodel
+*/
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using rpiApp.Models;
 using rpiApp.Services;

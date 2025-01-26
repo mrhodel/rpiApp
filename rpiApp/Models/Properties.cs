@@ -1,4 +1,8 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿/*
+ * Properties.cs
+ * 1/26/2025 Mike Hodel
+*/
+using CommunityToolkit.Mvvm.Messaging;
 using PropertyModels.Collections;
 using PropertyModels.ComponentModel;
 using System;
