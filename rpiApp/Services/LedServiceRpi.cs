@@ -1,5 +1,5 @@
 ﻿/*
- * LedServiceLinux.cs
+ * LedServiceRpi.cs
  * 1/26/2025 Mike Hodel
 */
 using CommunityToolkit.Mvvm.Messaging;
@@ -9,11 +9,11 @@ using System.Diagnostics;
 
 namespace rpiApp.Services;
 
-public class LedServiceLinux : ILedService, IRecipient<LedChangedMessage>, IRecipient<AppClosingMessage>
+public class LedServiceRpi : ILedService, IRecipient<LedChangedMessage>, IRecipient<AppClosingMessage>
 {
     readonly GpioController controller = new();
     readonly IPropertiesService properties;
-    public LedServiceLinux(IPropertiesService properties)
+    public LedServiceRpi(IPropertiesService properties)
     {
         WeakReferenceMessenger.Default.Register<LedChangedMessage>(this);
         WeakReferenceMessenger.Default.Register<AppClosingMessage>(this);

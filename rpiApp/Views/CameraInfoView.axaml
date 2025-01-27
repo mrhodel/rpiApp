@@ -1,7 +1,7 @@
 <!--
-* CameraInfoView.axaml
-* 1/26/2025 Mike Hodel
-*
+    * CameraInfoView.axaml
+    * 1/26/2025 Mike Hodel
+    *
 -->
 <UserControl
     x:Class="rpiApp.Views.CameraInfoView"
@@ -10,9 +10,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:rpiApp.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
     x:DataType="vm:CameraInfoViewModel"
+	Width="500"
+	Height="300"
     mc:Ignorable="d">
 
     <Design.DataContext>
@@ -42,7 +42,7 @@
             Grid.Row="1"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Command="{Binding OnGetCameraInfo}"
-            Content="Get Camera Info" />
+            Command="{Binding OnCloseButton}"
+            Content="Close" />
     </Grid>
 </UserControl>

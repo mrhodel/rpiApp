@@ -6,37 +6,50 @@
 
 //using LibVLCSharp.Shared;
 
+using Avalonia.Controls;
+using CommunityToolkit.Diagnostics;
+using HanumanInstitute.MvvmDialogs;
+using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
+using rpiApp.Services;
+using System.Diagnostics;
+
 namespace rpiApp.ViewModels;
 
 public partial class CameraViewModel : ViewModelBase
 {
-    //private readonly LibVLC libVlc = new(enableDebugLogs: false);
-    //public MediaPlayer MediaPlayer { get; }
-
+    private readonly IDialogService? dialogService;
+    private readonly ICameraService? cameraService;
     public CameraViewModel()
     {
-        //MediaPlayer = new MediaPlayer(libVlc);
     }
 
-    //public void Play()
-    //{
-    //    if (Design.IsDesignMode)
-    //    {
-    //        return;
-    //    }
+    public CameraViewModel(IDialogService dialogService, ICameraService cameraService)
+    {
+        this.dialogService = dialogService;
+        this.cameraService = cameraService;
+    }
 
-    //    using var media = new Media(libVlc, new Uri("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
-    //    MediaPlayer.Play(media);
-    //}
+    public async void OnStartImagingAsync()
+    {
+        if (Design.IsDesignMode)
+        {
+            return;
+        }
 
-    //public void Stop()
-    //{
-    //    MediaPlayer.Stop();
-    //}
+        ConfigureIocServices.IsRunningOnRaspberryPiOS();
 
-    //public void Dispose()
-    //{
-    //    MediaPlayer?.Dispose();
-    //    libVlc?.Dispose();
-    //}
+        var result = await dialogService!.ShowMessageBoxAsync(
+                null,
+                "Camera View is Not implemented", "",
+                MessageBoxButton.Ok,
+                MessageBoxImage.Warning,
+                null);
+    }
+
+    public async void OnGetCameraInfo()
+    {
+        Guard.IsNotNull(dialogService);
+        var result = await dialogService.ShowCameraInfoViewAsync(null);
+        Debug.WriteLine($"Dialog result: {result}");
+    }
 }

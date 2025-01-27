@@ -1,7 +1,7 @@
 <!--
-* CameraView.axaml
-* 1/26/2025 Mike Hodel
-*
+    * CameraView.axaml
+    * 1/26/2025 Mike Hodel
+    *
 -->
 <UserControl
     x:Class="rpiApp.Views.CameraView"
@@ -32,30 +32,17 @@
             CornerRadius="{StaticResource ContentCornerRadius}">
             <Grid RowDefinitions="Auto, *, Auto">
                 <Label Grid.Row="0" HorizontalAlignment="Center">Video Player</Label>
-
-                <!--<vlc:VideoView
-                    Grid.Row="1"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    MediaPlayer="{Binding MediaPlayer}">
-                    <Panel Name="ControlsPanel">
-                        <StackPanel
-                            VerticalAlignment="Bottom"
-                            Background="#900000FF"
-                            Orientation="Horizontal"
-                            Spacing="20">
-                            <Button Margin="20" Command="{Binding Play}">Play</Button>
-                            <Button Margin="20" Command="{Binding Stop}">Stop</Button>
-                        </StackPanel>
-                    </Panel>
-                </vlc:VideoView>-->
             </Grid>
 
         </Border>
 
-        <Button
+        <StackPanel
             Grid.Row="1"
             HorizontalAlignment="Center"
-            Content="Start Imaging" />
+            Orientation="Horizontal"
+            Spacing="20">
+            <Button Command="{Binding OnGetCameraInfo}" Content="Get Camera Info" />
+            <Button Command="{Binding OnStartImagingAsync}" Content="Start Imaging" />
+        </StackPanel>
     </Grid>
 </UserControl>

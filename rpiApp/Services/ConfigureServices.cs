@@ -17,7 +17,7 @@ internal static class ConfigureIocServices
     {
         DialogManager dm = new(
                 viewLocator: new ViewLocator(),
-                dialogFactory: new DialogFactory().AddDialogHost().AddMessageBox(MessageBoxMode.Window))
+                dialogFactory: new DialogFactory().AddDialogHost().AddMessageBox(MessageBoxMode.Popup))
         {
             AllowConcurrentDialogs = true
         };
@@ -30,10 +30,10 @@ internal static class ConfigureIocServices
                 .AddSingleton<IPropertiesService, PropertiesService>()
                 .AddSingleton<IDialogService>(new DialogService(dm, viewModelFactory: x => Ioc.Default.GetService(x)));
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        if (IsRunningOnRaspberryPiOS())
         {
-            services.AddSingleton<ILedService, LedServiceLinux>();
-            services.AddSingleton<ICameraService, CameraServiceLinux>();
+            services.AddSingleton<ILedService, LedServiceRpi>();
+            services.AddSingleton<ICameraService, CameraServiceRpi>();
         }
         else
         {
@@ -42,5 +42,15 @@ internal static class ConfigureIocServices
         }
 
         Ioc.Default.ConfigureServices(services.BuildServiceProvider());
+    }
+
+    public static bool IsRunningOnRaspberryPiOS()
+    {
+        string osDescription = RuntimeInformation.OSDescription.ToLower();
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            return osDescription.Contains("raspbian") || osDescription.Contains("raspberry");
+        }
+        return false;
     }
 }

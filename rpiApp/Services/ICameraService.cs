@@ -19,7 +19,7 @@ public interface ICameraService
     void GetInfoAsync();
 }
 
-public class CameraServiceLinux : ICameraService
+public class CameraServiceRpi : ICameraService
 {
     public async void GetInfoAsync()
     {
@@ -41,12 +41,12 @@ public class CameraServicePC : ICameraService
     public async void GetInfoAsync()
     {
         var sb = new StringBuilder();
+        sb.AppendLine("Camera info is only available when running on a Raspberry Pi with a camera attached");
         foreach (var i in Enumerable.Range(1, 50))
         {
             sb.AppendLine($"Line {i}");
         }
         await Task.Delay(10);
-
         WeakReferenceMessenger.Default.Send(new CameraInfoMessage(sb.ToString()));
     }
 }
