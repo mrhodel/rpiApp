@@ -49,7 +49,9 @@ internal static class ConfigureIocServices
         string osDescription = RuntimeInformation.OSDescription.ToLower();
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-            return osDescription.Contains("raspbian") || osDescription.Contains("raspberry");
+            return osDescription.Contains("raspbian") ||
+                   osDescription.Contains("raspberry") ||
+                   osDescription.Contains("debian");
         }
         return false;
     }

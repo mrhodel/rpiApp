@@ -38,9 +38,6 @@
             <TabItem x:Name="Charting" Header="Charting">
                 <ContentControl Content="{Binding ChartingViewModel}" />
             </TabItem>
-            <!--<TabItem x:Name="CameraInfo" Header="Camera Info">
-                <ContentControl Content="{Binding CameraInfoViewModel}" />
-            </TabItem>-->
             <TabItem x:Name="Camera" Header="Camera">
                 <ContentControl Content="{Binding CameraViewModel}" />
             </TabItem>

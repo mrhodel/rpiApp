@@ -2,6 +2,7 @@
  * ChartingViewModel.cs
  * 1/26/2025 Mike Hodel
  */
+using CommunityToolkit.Mvvm.ComponentModel;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.SkiaSharpView;
@@ -26,7 +27,8 @@ public partial class ChartingViewModel : ViewModelBase
     public ObservableCollection<ISeries> Series { get; set; }
     public Axis[] XAxes { get; set; }
     public object Sync { get; set; } = new object();
-    public string PauseText { get; set; } = "Pause";
+    [ObservableProperty]
+    public partial string PauseText { get; set; } = "Pause";
 
     public ChartingViewModel()
     {
