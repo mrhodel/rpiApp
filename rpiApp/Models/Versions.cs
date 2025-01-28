@@ -15,6 +15,6 @@ namespace rpiApp.Models;
 
 public static class Versions
 {
-    public static SemVersion? CurrentVersion { get; } = SemVersion.ParsedFrom(0, 1, 0, "rc.1");
+    public static SemVersion? CurrentVersion { get; } = SemVersion.ParsedFrom(0, 1, 0, "alpha.1");
     public static string? ApplicationName { get; } = Assembly.GetEntryAssembly()?.GetName().Name;
 }
