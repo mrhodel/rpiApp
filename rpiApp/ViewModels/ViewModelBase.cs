@@ -4,9 +4,8 @@
 */
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace rpiApp.ViewModels
+namespace rpiApp.ViewModels;
+
+public class ViewModelBase : ObservableObject
 {
-    public class ViewModelBase : ObservableObject
-    {
-    }
 }

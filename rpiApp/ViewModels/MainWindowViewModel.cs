@@ -18,10 +18,10 @@ public partial class MainWindowViewModel(PropertiesViewModel? propertiesViewMode
 {
     public MainWindowViewModel() : this(null, null, null, null)
     {   /* For XAML previewer */
-        this.PropertiesViewModel = Ioc.Default.GetRequiredService<PropertiesViewModel>();
-        this.ChartingViewModel = Ioc.Default.GetRequiredService<ChartingViewModel>();
-        this.CameraViewModel = Ioc.Default.GetRequiredService<CameraViewModel>();
-        this.LedService = Ioc.Default.GetRequiredService<ILedService>();
+        PropertiesViewModel = Ioc.Default.GetRequiredService<PropertiesViewModel>();
+        ChartingViewModel = Ioc.Default.GetRequiredService<ChartingViewModel>();
+        CameraViewModel = Ioc.Default.GetRequiredService<CameraViewModel>();
+        LedService = Ioc.Default.GetRequiredService<ILedService>();
     }
 
     public PropertiesViewModel? PropertiesViewModel { get; set; } = propertiesViewModel;

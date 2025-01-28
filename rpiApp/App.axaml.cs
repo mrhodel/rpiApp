@@ -62,7 +62,5 @@ namespace rpiApp
                 BindingPlugins.DataValidators.Remove(plugin);
             }
         }
-
-        // ... other code ...
     }
 }

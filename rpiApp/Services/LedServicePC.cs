@@ -10,12 +10,12 @@ namespace rpiApp.Services
 {
     public class LedServicePC : ILedService, IRecipient<LedChangedMessage>, IRecipient<AppClosingMessage>
     {
-        readonly IPropertiesService properties;
-        public LedServicePC(IPropertiesService properties)
+        readonly IPropertiesService _propertiesService;
+        public LedServicePC(IPropertiesService propertiesService)
         {
             WeakReferenceMessenger.Default.Register<LedChangedMessage>(this);
             WeakReferenceMessenger.Default.Register<AppClosingMessage>(this);
-            this.properties = properties;
+            _propertiesService = propertiesService;
             SetLeds();
         }
 
@@ -31,7 +31,7 @@ namespace rpiApp.Services
 
         private void SetLed(object pin, Properties.Led led)
         {
-            Debug.WriteLine($"{led.ToString():5} Led, Pin {pin}, {(properties.Properties.LedIndicators.HasFlag(led) ? "On" : "Off")}");
+            Debug.WriteLine($"{led.ToString():5} Led, Pin {pin}, {(_propertiesService.Properties.LedIndicators.HasFlag(led) ? "On" : "Off")}");
         }
 
         public void Receive(LedChangedMessage message)
@@ -43,7 +43,7 @@ namespace rpiApp.Services
         public void Receive(AppClosingMessage message)
         {
             Debug.WriteLine(message.Value + ", Turning off all LEDs");
-            properties.Properties.LedIndicators = 0;
+            _propertiesService.Properties.LedIndicators = 0;
             SetLeds();
         }
     }

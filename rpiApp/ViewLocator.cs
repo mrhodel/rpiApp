@@ -1,9 +1,8 @@
 using HanumanInstitute.MvvmDialogs.Avalonia;
 
-namespace rpiApp
+namespace rpiApp;
+
+public class ViewLocator : ViewLocatorBase
 {
-    public class ViewLocator : ViewLocatorBase
-    {
-        protected override string GetViewName(object viewModel) => viewModel.GetType().FullName!.Replace("ViewModel", "View");
-    }
+    protected override string GetViewName(object viewModel) => viewModel.GetType().FullName!.Replace("ViewModel", "View");
 }

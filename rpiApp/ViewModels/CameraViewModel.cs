@@ -17,14 +17,14 @@ namespace rpiApp.ViewModels;
 
 public partial class CameraViewModel : ViewModelBase
 {
-    private readonly IDialogService? dialogService;
+    private readonly IDialogService? _dialogService;
     public CameraViewModel()
     {
     }
 
     public CameraViewModel(IDialogService dialogService)
     {
-        this.dialogService = dialogService;
+        _dialogService = dialogService;
     }
 
     public async void OnStartImagingAsync()
@@ -34,7 +34,7 @@ public partial class CameraViewModel : ViewModelBase
             return;
         }
 
-        var result = await dialogService!.ShowMessageBoxAsync(
+        var result = await _dialogService!.ShowMessageBoxAsync(
                 null,
                 "Camera View is Not implemented", "",
                 MessageBoxButton.Ok,
@@ -45,8 +45,8 @@ public partial class CameraViewModel : ViewModelBase
 
     public async void OnGetCameraInfo()
     {
-        Guard.IsNotNull(dialogService);
-        var result = await dialogService.ShowCameraInfoViewAsync(null);
+        Guard.IsNotNull(_dialogService);
+        var result = await _dialogService.ShowCameraInfoViewAsync(null);
         Debug.WriteLine($"Dialog result: {result}");
     }
 }

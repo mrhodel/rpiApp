@@ -1,5 +1,5 @@
 ﻿/*
- * IPorpertiesService.cs
+ * IPropertiesService.cs
  * 1/26/2025 Mike Hodel
 */
 using rpiApp.Models;

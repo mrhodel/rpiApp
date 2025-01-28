@@ -60,7 +60,6 @@ public class Properties(string description) : ReactiveObject
     [ValidateLeds]
     public Led LedIndicators { get; set; } = Led.Green;
 
-
     public class ValidateLedsAttribute : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)

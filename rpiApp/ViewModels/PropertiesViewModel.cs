@@ -12,9 +12,9 @@ public partial class PropertiesViewModel : ViewModelBase
 {
     public Properties Properties { get; set; }
 
-    public PropertiesViewModel(IPropertiesService properties)
+    public PropertiesViewModel(IPropertiesService propertiesService)
     {
-        Properties = properties.Properties;
+        Properties = propertiesService.Properties;
     }
 
     public PropertiesViewModel()

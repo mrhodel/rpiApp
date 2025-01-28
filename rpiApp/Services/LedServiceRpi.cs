@@ -11,18 +11,18 @@ namespace rpiApp.Services;
 
 public class LedServiceRpi : ILedService, IRecipient<LedChangedMessage>, IRecipient<AppClosingMessage>
 {
-    readonly GpioController controller = new();
-    readonly IPropertiesService properties;
-    public LedServiceRpi(IPropertiesService properties)
+    readonly GpioController _controller = new();
+    readonly IPropertiesService _propertiesService;
+    public LedServiceRpi(IPropertiesService propertiesService)
     {
         WeakReferenceMessenger.Default.Register<LedChangedMessage>(this);
         WeakReferenceMessenger.Default.Register<AppClosingMessage>(this);
-        this.properties = properties;
-        controller.OpenPin(Properties.RedLedPin, PinMode.Output);
-        controller.OpenPin(Properties.GreenLedPin, PinMode.Output);
-        controller.OpenPin(Properties.BlueLedPin, PinMode.Output);
-        controller.OpenPin(Properties.YellowLedPin, PinMode.Output);
-        controller.OpenPin(Properties.WhiteLedPin, PinMode.Output);
+        this._propertiesService = propertiesService;
+        _controller.OpenPin(Properties.RedLedPin, PinMode.Output);
+        _controller.OpenPin(Properties.GreenLedPin, PinMode.Output);
+        _controller.OpenPin(Properties.BlueLedPin, PinMode.Output);
+        _controller.OpenPin(Properties.YellowLedPin, PinMode.Output);
+        _controller.OpenPin(Properties.WhiteLedPin, PinMode.Output);
         SetLeds();
     }
 
@@ -37,7 +37,7 @@ public class LedServiceRpi : ILedService, IRecipient<LedChangedMessage>, IRecipi
 
     private void SetLed(int pin, Properties.Led led)
     {
-        controller.Write(pin, properties.Properties.LedIndicators.HasFlag(led) ? PinValue.High : PinValue.Low);
+        _controller.Write(pin, _propertiesService.Properties.LedIndicators.HasFlag(led) ? PinValue.High : PinValue.Low);
     }
 
     public void Receive(LedChangedMessage message)
@@ -49,7 +49,7 @@ public class LedServiceRpi : ILedService, IRecipient<LedChangedMessage>, IRecipi
     public void Receive(AppClosingMessage message)
     {
         Debug.WriteLine(message.Value + ", Turning off LEDs");
-        properties.Properties.LedIndicators = 0;
+        _propertiesService.Properties.LedIndicators = 0;
         SetLeds();
     }
 }

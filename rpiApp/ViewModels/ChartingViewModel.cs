@@ -17,12 +17,12 @@ namespace rpiApp.ViewModels;
 
 public partial class ChartingViewModel : ViewModelBase
 {
-    private readonly List<DateTimePoint> valuesA = [];
-    private readonly List<DateTimePoint> valuesB = [];
-    private readonly DateTimeAxis customAxis;
-    private readonly bool isReading = true;
-    private readonly Random random = new();
-    private bool isPaused = false;
+    private readonly List<DateTimePoint> _valuesA = [];
+    private readonly List<DateTimePoint> _valuesB = [];
+    private readonly DateTimeAxis _customAxis;
+    private readonly bool _isReading = true;
+    private readonly Random _random = new();
+    private bool _isPaused = false;
 
     public ObservableCollection<ISeries> Series { get; set; }
     public Axis[] XAxes { get; set; }
@@ -35,7 +35,7 @@ public partial class ChartingViewModel : ViewModelBase
         Series = [
             new LineSeries<DateTimePoint>
             {
-                Values = valuesB,
+                Values = _valuesB,
                 Fill = null,
                 Stroke = new SolidColorPaint(SKColors.LightGreen, strokeWidth: 1.0f),
                 LineSmoothness = 0.2f,
@@ -44,7 +44,7 @@ public partial class ChartingViewModel : ViewModelBase
             },
             new LineSeries<DateTimePoint>
             {
-                Values = valuesA,
+                Values = _valuesA,
                 Fill = null,
                 Stroke = new SolidColorPaint(SKColors.LightBlue, strokeWidth: 1.0f),
                 LineSmoothness = 0.2f,
@@ -53,23 +53,23 @@ public partial class ChartingViewModel : ViewModelBase
             }
         ];
 
-        customAxis = new DateTimeAxis(TimeSpan.FromSeconds(1), Formatter)
+        _customAxis = new DateTimeAxis(TimeSpan.FromSeconds(1), Formatter)
         {
             CustomSeparators = GetSeparators(),
             AnimationsSpeed = TimeSpan.FromMilliseconds(0),
             SeparatorsPaint = new SolidColorPaint(SKColors.Gray.WithAlpha(100))
         };
 
-        XAxes = [customAxis];
+        XAxes = [_customAxis];
         _ = ReadDataAsync();
     }
 
     private async Task ReadDataAsync()
     {
-        while (isReading)
+        while (_isReading)
         {
             await Task.Delay(100);
-            if (isPaused) continue;
+            if (_isPaused) continue;
             ReadData();
         }
     }
@@ -81,20 +81,20 @@ public partial class ChartingViewModel : ViewModelBase
         // this is not necessary if your changes are made on the UI thread. 
         lock (Sync)
         {
-            valuesA.Add(new DateTimePoint(DateTime.Now, random.Next(0, 10)));
-            if (valuesA.Count > 250)
+            _valuesA.Add(new DateTimePoint(DateTime.Now, _random.Next(0, 10)));
+            if (_valuesA.Count > 250)
             {
-                valuesA.RemoveAt(0);
+                _valuesA.RemoveAt(0);
             }
 
-            valuesB.Add(new DateTimePoint(DateTime.Now, random.Next(10, 20)));
-            if (valuesB.Count > 250)
+            _valuesB.Add(new DateTimePoint(DateTime.Now, _random.Next(10, 20)));
+            if (_valuesB.Count > 250)
             {
-                valuesB.RemoveAt(0);
+                _valuesB.RemoveAt(0);
             }
 
             // we need to update the separators every time we add a new point 
-            customAxis.CustomSeparators = GetSeparators();
+            _customAxis.CustomSeparators = GetSeparators();
         }
     }
 
@@ -122,17 +122,17 @@ public partial class ChartingViewModel : ViewModelBase
 
     public void OnPause()
     {
-        isPaused = !isPaused;
-        PauseText = isPaused ? "Resume" : "Pause";
+        _isPaused = !_isPaused;
+        PauseText = _isPaused ? "Resume" : "Pause";
     }
 
     public void OnClearData()
     {
         lock (Sync)
         {
-            valuesA.Clear();
-            valuesB.Clear();
-            customAxis.CustomSeparators = GetSeparators();
+            _valuesA.Clear();
+            _valuesB.Clear();
+            _customAxis.CustomSeparators = GetSeparators();
         }
     }
 }
