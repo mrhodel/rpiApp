@@ -7,7 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using rpiApp.Services;
-using System.Diagnostics;
+using Serilog;
 
 namespace rpiApp.ViewModels;
 
@@ -37,12 +37,10 @@ public partial class MainWindowViewModel(PropertiesViewModel? propertiesViewMode
         {
             _selectedItem = value;
 
-            // Some logic here
             var item = value as TabItem;
-            Debug.WriteLine(item!.Name);
+            Log.Information($"Tab {item!.Name} selected");
             if (item!.Name == "ExitApp")
             {
-
                 if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime)
                 {
                     lifetime.Shutdown();

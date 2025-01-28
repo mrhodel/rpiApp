@@ -18,15 +18,13 @@ namespace rpiApp.ViewModels;
 public partial class CameraViewModel : ViewModelBase
 {
     private readonly IDialogService? dialogService;
-    private readonly ICameraService? cameraService;
     public CameraViewModel()
     {
     }
 
-    public CameraViewModel(IDialogService dialogService, ICameraService cameraService)
+    public CameraViewModel(IDialogService dialogService)
     {
         this.dialogService = dialogService;
-        this.cameraService = cameraService;
     }
 
     public async void OnStartImagingAsync()
@@ -36,14 +34,13 @@ public partial class CameraViewModel : ViewModelBase
             return;
         }
 
-        ConfigureIocServices.IsRunningOnRaspberryPiOS();
-
         var result = await dialogService!.ShowMessageBoxAsync(
                 null,
                 "Camera View is Not implemented", "",
                 MessageBoxButton.Ok,
                 MessageBoxImage.Warning,
                 null);
+        Debug.WriteLine($"Dialog result: {result}");
     }
 
     public async void OnGetCameraInfo()
