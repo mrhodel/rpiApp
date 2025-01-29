@@ -33,7 +33,7 @@ rpiApp is a project template designed to facilitate the development of cross-pla
 - Visual Studio 2022 or any other compatible IDE
 
 ### Installation
-Select ![Use This Template](Pics/UseThisTemplate.png){width=15%} from GitHub (https://github.com/mrhodel/rpiApp.git) to create a new repository
+Select ![Use This Template](Pics/UseThisTemplate.png) from GitHub (https://github.com/mrhodel/rpiApp.git) to create a new repository
 
 ## Publishing
 To publish the application, you can use Visual Studio:
@@ -55,7 +55,7 @@ Note: For debugging on Linux do not check "Produce Single File" found in File Pu
  3. Select **Attach to Process...** from the Visual Studio Debug menu.
  4. Enter the Connection type and connection target, select the application from the list, and click connect.
 -
-	![Attach to Process](Pics/AttachToProcess.png){width=70%}
+	![Attach to Process](Pics/AttachToProcess.png)
 
 ### On Windows use Visual Studio as usual.
 
