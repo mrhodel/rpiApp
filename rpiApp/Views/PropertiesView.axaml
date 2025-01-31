@@ -1,7 +1,7 @@
 <!--
-* PropertiesView.axaml
-* 1/26/2025 Mike Hodel
-*
+    * PropertiesView.axaml
+    * 1/26/2025 Mike Hodel
+    *
 -->
 <UserControl
     x:Class="rpiApp.Views.PropertiesView"
@@ -11,8 +11,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pgc="using:Avalonia.PropertyGrid.Controls"
     xmlns:vm="using:rpiApp.ViewModels"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="500"
+    d:DesignWidth="1000"
     x:DataType="vm:PropertiesViewModel"
     mc:Ignorable="d">
 
@@ -25,6 +25,7 @@
     </Design.DataContext>
 
     <Grid RowDefinitions="*,50">
+
         <Border
             Margin="{StaticResource ContentMargin}"
             Padding="{StaticResource ContentPadding}"
@@ -32,13 +33,15 @@
             BorderThickness="{StaticResource ContentBorderThickness}"
             CornerRadius="{StaticResource ContentCornerRadius}">
             <ScrollViewer AllowAutoHide="False" HorizontalScrollBarVisibility="Auto">
-                <pgc:PropertyGrid
-                    x:Name="Properties"
-                    AllowFilter="False"
-                    AllowQuickFilter="False"
-                    DataContext="{Binding Properties}"
-                    ShowStyle="Tiled"
-                    ShowTitle="True" />
+                <Viewbox Width="900" Stretch="Fill" StretchDirection="Both">
+                    <pgc:PropertyGrid
+                        x:Name="Properties"
+                        AllowFilter="False"
+                        AllowQuickFilter="true"
+                        DataContext="{Binding Properties}"
+                        ShowStyle="Tiled"
+                        ShowTitle="True" />
+                </Viewbox>
             </ScrollViewer>
         </Border>
     </Grid>

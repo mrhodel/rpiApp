@@ -27,7 +27,7 @@ internal static class ConfigureIocServices
                 .AddTransient<TextEditViewModel>()
                 .AddTransient<CameraInfoViewModel>()
                 .AddTransient<CameraViewModel>()
-                .AddTransient<ChartingViewModel>()
+                //.AddTransient<ChartingViewModel>()
                 .AddSingleton<IPropertiesService, PropertiesService>()
                 .AddSingleton<IDialogService>(new DialogService(dm, viewModelFactory: x => Ioc.Default.GetService(x)));
 

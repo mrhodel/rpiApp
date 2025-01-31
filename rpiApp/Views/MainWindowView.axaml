@@ -35,9 +35,9 @@
             <TabItem x:Name="Properties" Header="Properties">
                 <ContentControl Content="{Binding PropertiesViewModel}" />
             </TabItem>
-            <TabItem x:Name="Charting" Header="Charting">
+            <!--<TabItem x:Name="Charting" Header="Charting">
                 <ContentControl Content="{Binding ChartingViewModel}" />
-            </TabItem>
+            </TabItem>-->
 			<TabItem x:Name="TextEdit" Header="Text Editor">
 				<ContentControl Content="{Binding TextEditViewModel}" />
 			</TabItem>
