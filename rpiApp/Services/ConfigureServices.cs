@@ -24,6 +24,7 @@ internal static class ConfigureIocServices
 
         services.AddTransient<MainWindowViewModel>()
                 .AddTransient<PropertiesViewModel>()
+                .AddTransient<TextEditViewModel>()
                 .AddTransient<CameraInfoViewModel>()
                 .AddTransient<CameraViewModel>()
                 .AddTransient<ChartingViewModel>()

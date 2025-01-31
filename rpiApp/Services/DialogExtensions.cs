@@ -14,11 +14,11 @@ namespace rpiApp.Services;
 
 public static class DialogExtensions
 {
-    private static MainWindowViewModel? _mainView;
+    private static MainWindowViewModel? _mainViewModel;
     public static void ShowMainWindowView(this IDialogService dialog)
     {
-        _mainView = dialog.CreateViewModel<MainWindowViewModel>();
-        dialog.Show(null, _mainView);
+        _mainViewModel = dialog.CreateViewModel<MainWindowViewModel>();
+        dialog.Show(null, _mainViewModel);
     }
 
     public static async Task<bool?> ShowCameraInfoViewAsync(this IDialogService dialog, INotifyPropertyChanged? ownerViewModel)
@@ -30,9 +30,9 @@ public static class DialogExtensions
             DisableOpeningAnimation = false,
             CloseOnClickAway = true
         };
-        // If the calling view model is for a window then use that as the owner, otherwise use the main view.
-        Guard.IsNotNull(_mainView);
-        await dialog.ShowDialogHostAsync((ownerViewModel is not null) ? ownerViewModel : _mainView, settings);
+        // If the calling view model is for a window then use that window as the owner, otherwise use the main view.
+        Guard.IsNotNull(_mainViewModel);
+        await dialog.ShowDialogHostAsync(ownerViewModel: (ownerViewModel is not null) ? ownerViewModel : _mainViewModel, settings);
         return viewModel.DialogResult;
     }
 }

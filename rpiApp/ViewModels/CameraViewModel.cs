@@ -34,13 +34,21 @@ public partial class CameraViewModel : ViewModelBase
             return;
         }
 
-        var result = await _dialogService!.ShowMessageBoxAsync(
-                null,
-                "Camera View is Not implemented", "",
-                MessageBoxButton.Ok,
-                MessageBoxImage.Warning,
-                null);
-        Debug.WriteLine($"Dialog result: {result}");
+        // todo: why does this cause an exception in the text editor (screws up syntax highlighting too)
+        try
+        {
+            var result = await _dialogService!.ShowMessageBoxAsync(
+                    null,
+                    "Camera View is Not implemented", "",
+                    MessageBoxButton.Ok,
+                    MessageBoxImage.Warning,
+                    null);
+            Debug.WriteLine($"Dialog result: {result}");
+        }
+        catch (System.Exception e)
+        {
+            Debug.WriteLine(e);
+        }
     }
 
     public async void OnGetCameraInfo()

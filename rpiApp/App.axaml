@@ -14,6 +14,7 @@
     <Application.Styles>
         <FluentTheme />
         <dialogHostAvalonia:DialogHostStyles />
+		<StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
     </Application.Styles>
 
     <Application.Resources>
