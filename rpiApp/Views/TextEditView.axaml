@@ -6,7 +6,7 @@
     x:Class="rpiApp.Views.TextEditView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:AvaloniaEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
+    xmlns:AvalonEdit="clr-namespace:AvaloniaEdit;assembly=AvaloniaEdit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:editing="using:AvaloniaEdit.Editing"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -43,37 +43,48 @@
                 VerticalContentAlignment="Center"
                 Command="{Binding OnOpenFileButtonAsync}"
                 Content="Open File" />
-
             <ToggleButton
                 Name="viewTabs"
                 VerticalAlignment="Stretch"
                 VerticalContentAlignment="Center"
                 Content="View tabs"
-                IsChecked="{Binding #Editor.Options.ShowTabs}" />
+                IsChecked="{Binding EditorOptions.ShowTabs}" />
             <ToggleButton
                 Name="viewSpaces"
                 VerticalAlignment="Stretch"
                 VerticalContentAlignment="Center"
                 Content="View spaces"
-                IsChecked="{Binding #Editor.Options.ShowSpaces}" />
+                IsChecked="{Binding EditorOptions.ShowSpaces}" />
             <ToggleButton
                 Name="viewEOL"
                 VerticalAlignment="Stretch"
                 VerticalContentAlignment="Center"
                 Content="View EOL"
-                IsChecked="{Binding #Editor.Options.ShowEndOfLine}" />
+                IsChecked="{Binding EditorOptions.ShowEndOfLine}" />
             <ToggleButton
                 Name="viewColumnRules"
                 VerticalAlignment="Stretch"
                 VerticalContentAlignment="Center"
                 Content="View columns rulers"
-                IsChecked="{Binding #Editor.Options.ShowColumnRulers}" />
+                IsChecked="{Binding EditorOptions.ShowColumnRulers}" />
+            <!--<Button
+                Name="addControlBtn"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                Content="Add Button" />
+            <Button
+                Name="clearControlBtn"
+                VerticalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                Content="Clear Buttons" />-->
             <ComboBox
                 Name="syntaxModeCombo"
+				SelectedItem="{Binding SelectedLanguage}"
+				ItemsSource="{Binding Languages}"
                 VerticalAlignment="Stretch"
                 VerticalContentAlignment="Center" />
 
-            <!--<DropDownButton
+            <DropDownButton
                 VerticalAlignment="Stretch"
                 VerticalContentAlignment="Center"
                 Content="Change theme">
@@ -88,7 +99,7 @@
                         </ListBox>
                     </Flyout>
                 </Button.Flyout>
-            </DropDownButton>-->
+            </DropDownButton>
 
             <!--<Button
                 Name="insertSnippetBtn"
@@ -109,16 +120,18 @@
                 FontSize="12"
                 Text="Ready" />
         </StackPanel>
-        <AvaloniaEdit:TextEditor
+        <AvalonEdit:TextEditor
             Name="Editor"
             Document="{Binding ScriptText}"
             FontFamily="Cascadia Code,Consolas,Menlo,Monospace"
             FontSize="14"
             FontWeight="Light"
             HorizontalScrollBarVisibility="Auto"
-            ShowLineNumbers="True"
-            VerticalScrollBarVisibility="Visible">
-            <AvaloniaEdit:TextEditor.ContextFlyout>
+            VerticalScrollBarVisibility="Visible"
+			
+			Options="{Binding EditorOptions}"
+            Watermark="">
+            <AvalonEdit:TextEditor.ContextFlyout>
                 <MenuFlyout>
                     <MenuItem
                         Command="{Binding CopyMouseCommmand}"
@@ -142,40 +155,12 @@
                         Header="Select All"
                         InputGesture="ctrl+A" />
                 </MenuFlyout>
-            </AvaloniaEdit:TextEditor.ContextFlyout>
-            <AvaloniaEdit:TextEditor.Styles>
-                <!--<Style Selector="editing|LineNumberMargin">
-					<Setter Property="MinWidthInDigits" Value="3" />
-				</Style>-->
-            </AvaloniaEdit:TextEditor.Styles>
-        </AvaloniaEdit:TextEditor>
-        <!--<Grid RowDefinitions="*,50">
-            <AvaloniaEdit:TextEditor
-                Name="Editor"
-                Margin="{StaticResource ContentMargin}"
-                Padding="{StaticResource ContentPadding}"
-                BorderBrush="{DynamicResource ContentBorderBrush}"
-                BorderThickness="{StaticResource ContentBorderThickness}"
-                CornerRadius="{StaticResource ContentCornerRadius}"
-                Document="{Binding ScriptText}"
-                FontFamily="Cascadia Code,Consolas,Menlo,Monospace"
-                IsEnabled="True"
-                IsReadOnly="False"
-                ScrollViewer.AllowAutoHide="False"
-                ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                ScrollViewer.VerticalScrollBarVisibility="Visible"
-                ShowLineNumbers="True">
-
-
-            </AvaloniaEdit:TextEditor>
-
-            <Button
-                Grid.Row="1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Command="{Binding OnOpenFileButtonAsync}"
-                Content="Open File" />
-        </Grid>-->
-
+            </AvalonEdit:TextEditor.ContextFlyout>
+            <AvalonEdit:TextEditor.Styles>
+                <Style Selector="editing|LineNumberMargin">
+                    <!--<Setter Property="MinWidthInDigits" Value="3" />-->
+                </Style>
+            </AvalonEdit:TextEditor.Styles>
+        </AvalonEdit:TextEditor>
     </DockPanel>
 </UserControl>

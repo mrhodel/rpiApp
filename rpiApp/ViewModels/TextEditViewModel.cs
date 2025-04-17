@@ -5,22 +5,40 @@
 using AvaloniaEdit;
 using AvaloniaEdit.Document;
 using AvaloniaEdit.Editing;
-using CommunityToolkit.Mvvm.ComponentModel;
+using AvaloniaEdit.TextMate;
 using HanumanInstitute.MvvmDialogs;
 using HanumanInstitute.MvvmDialogs.FileSystem;
 using HanumanInstitute.MvvmDialogs.FrameworkDialogs;
+//using HarfBuzzSharp;
+using PropertyModels.ComponentModel;
 using rpiApp.Models;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using TextMateSharp.Grammars;
 
 namespace rpiApp.ViewModels;
 
-public partial class TextEditViewModel : ViewModelBase/*, ReactiveObject*/
+public partial class TextEditViewModel : ReactiveObject
 {
+    public TextMate.Installation TextMateInstallation { get; set; }
+    public RegistryOptions RegistryOptions { get; set; }
     public ObservableCollection<ThemeViewModel> AllThemes { get; set; } = [];
+    public TextEditorOptions EditorOptions { get; set; } = new();
+
+    public Language SelectedLanguage { get; set; }
+    private List<Language> _languages;
+    public List<Language> Languages
+    {
+        get => _languages;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _languages, value);
+        }
+    }
+
     private ThemeViewModel _selectedTheme;
 
     public ThemeViewModel SelectedTheme
@@ -28,20 +46,32 @@ public partial class TextEditViewModel : ViewModelBase/*, ReactiveObject*/
         get => _selectedTheme;
         set
         {
-            //this.RaiseAndSetIfChanged(ref _selectedTheme, value);
-            //_textMateInstallation.SetTheme(_registryOptions.LoadTheme(value.ThemeName));
+            this.RaiseAndSetIfChanged(ref _selectedTheme, value);
+            TextMateInstallation.SetTheme(RegistryOptions.LoadTheme(value.ThemeName));
+            Languages = RegistryOptions.GetAvailableLanguages();
+            SelectedLanguage = RegistryOptions!.GetLanguageByExtension(".py");
+            TextMateInstallation.SetGrammar(RegistryOptions.GetScopeByLanguageId(SelectedLanguage.Id));
+            //TextMateInstallation.SetGrammar(scopeName);
         }
     }
 
     readonly IDialogService? _dialogService;
     public ObservableCollection<string> Paths { get; private set; } = [];
 
-    [ObservableProperty]
-    public partial TextDocument? ScriptText { get; set; } = new();
-
+    private TextDocument? _scriptText = new();
+    public TextDocument? ScriptText
+    {
+        get => _scriptText;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _scriptText, value);
+        }
+    }
     public TextEditViewModel(IDialogService dialogService)
     {
         _dialogService = dialogService;
+        //SelectedLanuage = RegistryOptions!.GetLanguageByExtension(".py");
+
     }
 
     public TextEditViewModel()
@@ -107,7 +137,6 @@ public partial class TextEditViewModel : ViewModelBase/*, ReactiveObject*/
 
             // Reads all the content of file
             ScriptText = new TextDocument(await streamReader.ReadToEndAsync());
-            Debug.WriteLine(ScriptText.Text);
         }
     }
 

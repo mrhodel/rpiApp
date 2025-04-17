@@ -21,6 +21,12 @@ public static class DialogExtensions
         dialog.Show(null, _mainViewModel);
     }
 
+    //public static void ShowTextEditView(this IDialogService dialog)
+    //{
+    //    var viewModel = dialog.CreateViewModel<TextEditViewModel>();
+    //    dialog.Show(null, viewModel);
+    //}
+
     public static async Task<bool?> ShowCameraInfoViewAsync(this IDialogService dialog, INotifyPropertyChanged? ownerViewModel)
     {
         var viewModel = dialog.CreateViewModel<CameraInfoViewModel>();
